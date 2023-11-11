@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import Heading from "../Heading";
 import CategoryInput from "../inputs/CategoryInput";
 import Counter from "../inputs/Counter";
-import CountrySelect from "../inputs/CountrySelect";
+import CitySelect from "../inputs/CitySelect";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import { categories } from "../navbar/Categories";
@@ -22,13 +22,12 @@ type Props = {};
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  IMAGES = 2,
+  DESCRIPTION = 3,
+  PRICE = 4,
 }
 
-function RentModal({}: Props) {
+function RentModal({ }: Props) {
   const router = useRouter();
   const rentModel = useRentModal();
   const [step, setStep] = useState(STEPS.CATEGORY);
@@ -45,9 +44,9 @@ function RentModal({}: Props) {
     defaultValues: {
       category: "",
       location: null,
-      guestCount: 1,
-      roomCount: 1,
-      bathroomCount: 1,
+      // guestCount: 1,
+      // roomCount: 1,
+      // bathroomCount: 1,
       imageSrc: "",
       price: 1,
       title: "",
@@ -57,9 +56,9 @@ function RentModal({}: Props) {
 
   const category = watch("category");
   const location = watch("location");
-  const guestCount = watch("guestCount");
-  const roomCount = watch("roomCount");
-  const bathroomCount = watch("bathroomCount");
+  // const guestCount = watch("guestCount");
+  // const roomCount = watch("roomCount");
+  // const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
 
   const Map = useMemo(
@@ -152,9 +151,9 @@ function RentModal({}: Props) {
       <div className="flex flex-col gap-8">
         <Heading
           title="Where is your place located?"
-          subtitle="Help guests find you!"
+          subtitle="Help content creators find you!"
         />
-        <CountrySelect
+        <CitySelect
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         />
@@ -163,43 +162,43 @@ function RentModal({}: Props) {
     );
   }
 
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Share some basics about your place"
-          subtitle="What amenities do you have?"
-        />
-        <Counter
-          title="Guests"
-          subtitle="How many guest do you allow?"
-          value={guestCount}
-          onChange={(value) => setCustomValue("guestCount", value)}
-        />
-        <hr />
-        <Counter
-          title="Rooms"
-          subtitle="How many rooms do you have?"
-          value={roomCount}
-          onChange={(value) => setCustomValue("roomCount", value)}
-        />
-        <hr />
-        <Counter
-          title="Bathrooms"
-          subtitle="How many Bathrooms do you have?"
-          value={bathroomCount}
-          onChange={(value) => setCustomValue("bathroomCount", value)}
-        />
-      </div>
-    );
-  }
+  // if (step === STEPS.INFO) {
+  //   bodyContent = (
+  //     <div className="flex flex-col gap-8">
+  //       <Heading
+  //         title="Share some basics about your place"
+  //         subtitle="What amenities do you have?"
+  //       />
+  //       <Counter
+  //         title="Guests"
+  //         subtitle="How many guest do you allow?"
+  //         value={guestCount}
+  //         onChange={(value) => setCustomValue("guestCount", value)}
+  //       />
+  //       <hr />
+  //       <Counter
+  //         title="Rooms"
+  //         subtitle="How many rooms do you have?"
+  //         value={roomCount}
+  //         onChange={(value) => setCustomValue("roomCount", value)}
+  //       />
+  //       <hr />
+  //       <Counter
+  //         title="Bathrooms"
+  //         subtitle="How many Bathrooms do you have?"
+  //         value={bathroomCount}
+  //         onChange={(value) => setCustomValue("bathroomCount", value)}
+  //       />
+  //     </div>
+  //   );
+  // }
 
   if (step === STEPS.IMAGES) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
           title="Add a photo of your place"
-          subtitle="Show guests what your place looks like!"
+          subtitle="Show creators what your place looks like!"
         />
         <ImageUpload
           onChange={(value) => setCustomValue("imageSrc", value)}
@@ -214,7 +213,7 @@ function RentModal({}: Props) {
       <div className="flex flex-col gap-8">
         <Heading
           title="Now, set your price"
-          subtitle="How much do you charge per night?"
+          subtitle="How much do you charge per hour?"
         />
         <Input
           id="title"
@@ -242,7 +241,7 @@ function RentModal({}: Props) {
       <div className="flex flex-col gap-8">
         <Heading
           title="Now, set your price"
-          subtitle="How much do you charge per night?"
+          subtitle="How much do you charge per hour?"
         />
         <Input
           id="price"
@@ -262,7 +261,7 @@ function RentModal({}: Props) {
     <Modal
       disabled={isLoading}
       isOpen={rentModel.isOpen}
-      title="Airbnb your home!"
+      title="List your space!"
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondActionLabel}

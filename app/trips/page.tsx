@@ -3,11 +3,11 @@ import EmptyState from "@/components/EmptyState";
 import React from "react";
 import getCurrentUser from "../actions/getCurrentUser";
 import getReservation from "../actions/getReservations";
-import TripsClient from "./TripsClient";
+import BookingClient from "./BookingClient";
 
 type Props = {};
 
-const TripsPage = async (props: Props) => {
+const BookingPage = async (props: Props) => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -26,8 +26,8 @@ const TripsPage = async (props: Props) => {
     return (
       <ClientOnly>
         <EmptyState
-          title="No trips found"
-          subtitle="Looks like you havent reserved any trips."
+          title="No bookings found"
+          subtitle="Looks like you havent booked for any space."
         />
       </ClientOnly>
     );
@@ -35,9 +35,9 @@ const TripsPage = async (props: Props) => {
 
   return (
     <ClientOnly>
-      <TripsClient reservations={reservations} currentUser={currentUser} />
+      <BookingClient reservations={reservations} currentUser={currentUser} />
     </ClientOnly>
   );
 };
 
-export default TripsPage;
+export default BookingPage;

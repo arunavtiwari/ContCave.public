@@ -40,10 +40,10 @@ function UserMenu({ currentUser }: Props) {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+          className="hidden md:block text-sm font-semibold py-7 px-3 rounded-full hover:bg-neutral-100 transition cursor-pointer"
           onClick={onRent}
         >
-          Airbnb your Home
+          List Your Space
         </div>
         <div
           onClick={toggleOpen}
@@ -71,8 +71,8 @@ function UserMenu({ currentUser }: Props) {
             {currentUser ? (
               <>
                 <MenuItem
-                  onClick={() => router.push("/trips")}
-                  label="My trips"
+                  onClick={() => router.push("/booking")}
+                  label="My booking"
                 />
                 <MenuItem
                   onClick={() => router.push("/favorites")}
@@ -86,7 +86,7 @@ function UserMenu({ currentUser }: Props) {
                   onClick={() => router.push("/properties")}
                   label="My properties"
                 />
-                <MenuItem onClick={onRent} label="Airbnb your home" />
+                <MenuItem onClick={onRent} label="List your space" />
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>

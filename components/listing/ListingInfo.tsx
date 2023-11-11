@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "@/hook/useCountries";
+import useCities from "@/hook/useCities";
 import { SafeUser } from "@/types";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -17,29 +17,29 @@ const Map = dynamic(() => import("../Map"), {
 type Props = {
   user: SafeUser;
   description: string;
-  guestCount: number;
-  roomCount: number;
-  bathroomCount: number;
+  // guestCount: number;
+  // roomCount: number;
+  // bathroomCount: number;
   category:
-    | {
-        icon: IconType;
-        label: string;
-        description: string;
-      }
-    | undefined;
+  | {
+    icon: IconType;
+    label: string;
+    description: string;
+  }
+  | undefined;
   locationValue: string;
 };
 
 function ListingInfo({
   user,
   description,
-  guestCount,
-  roomCount,
-  bathroomCount,
+  // guestCount,
+  // roomCount,
+  // bathroomCount,
   category,
   locationValue,
 }: Props) {
-  const { getByValue } = useCountries();
+  const { getByValue } = useCities();
   const coordinates = getByValue(locationValue)?.latlng;
 
   return (
@@ -50,9 +50,9 @@ function ListingInfo({
           <Avatar src={user?.image} userName={user?.name} />
         </div>
         <div className="flex flex-row items-center gap-4 font-light text-neutral-500">
-          <p>{guestCount} guests</p>
+          {/* <p>{guestCount} guests</p>
           <p>{roomCount} rooms</p>
-          <p>{bathroomCount} bathrooms</p>
+          <p>{bathroomCount} bathrooms</p> */}
         </div>
       </div>
       <hr />
@@ -63,7 +63,7 @@ function ListingInfo({
           description={category?.description}
         />
       )}
-      <hr />
+      {/* <hr />
       <div className="flex flex-col">
         <p className="text-4xl font-bold text-[#FF5A5F]">
           air<span className="text-black">cover</span>
@@ -76,11 +76,11 @@ function ListingInfo({
           Learn more
         </p>
       </div>
-      <hr />
+      <hr /> */}
       <p className="text-lg font-light text-neutral-500">{description}</p>
       <hr />
-      <Sleep />
-      <hr />
+      {/* <Sleep />
+      <hr /> */}
       <Offers />
       <hr />
       <p className="text-xl font-semibold">{`Where you’ll be`}</p>

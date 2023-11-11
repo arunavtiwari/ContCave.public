@@ -5,101 +5,102 @@ import { BsSnow } from "react-icons/bs";
 import { FaSkiing } from "react-icons/fa";
 import {
   GiBarn,
-  GiBoatFishing,
-  GiCactus,
   GiCastle,
   GiCaveEntrance,
   GiForestCamp,
-  GiIsland,
-  GiWindmill,
+  GiIsland, GiAncientRuins, GiPineTree, GiFactory,GiPhotoCamera,
+  GiSunflower, GiCube, GiLighthouse, GiMountainCave,
+  GiArtificialIntelligence, GiFruitBowl
 } from "react-icons/gi";
 import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
 
+
+
 export const categories = [
   {
-    label: "Beach",
-    icon: TbBeach,
-    description: "This property is close to the beach!",
+    label: "Studios",
+    icon: GiPhotoCamera,
+    description: "For a modern touch, explore futuristic and contemporary spaces!",
   },
   {
-    label: "Windmills",
-    icon: GiWindmill,
-    description: "This property is has windmills!",
-  },
-  {
-    label: "Modern",
+    label: "Urban",
     icon: MdOutlineVilla,
-    description: "This property is modern!",
+    description: "This location is in the heart of the city!",
+  },
+  // {
+  //   label: "Historic",
+  //   icon: GiAncientRuins,
+  //   description: "Capture the charm of history in this location!",
+  // },
+  {
+    label: "Nature",
+    icon: GiPineTree,
+    description: "Surrounded by natural beauty, perfect for outdoor shoots!",
+  },
+  // {
+  //   label: "Industrial",
+  //   icon: GiFactory,
+  //   description: "An industrial setting, ideal for unique and edgy shoots!",
+  // },
+  // {
+  //   label: "Rural",
+  //   icon: GiBarn,
+  //   description: "Escape to the countryside for a rustic shoot!",
+  // },
+  {
+    label: "Open Spaces",
+    icon: GiSunflower,
+    description: "A location with expansive open space, great for creative shots!",
   },
   {
-    label: "Countryside",
-    icon: TbMountain,
-    description: "This property is in the countryside!",
+    label: "Minimalist",
+    icon: GiCube,
+    description: "Simplicity at its best, perfect for minimalist aesthetics!",
+  },
+  // {
+  //   label: "Architectural Marvel",
+  //   icon: GiCastle,
+  //   description: "Explore this architectural marvel for striking compositions!",
+  // },
+  {
+    label: "Seaside",
+    icon: GiLighthouse,
+    description: "Shoot by the sea, with breathtaking views and natural lighting!",
   },
   {
-    label: "Pools",
-    icon: TbPool,
-    description: "This is property has a beautiful pool!",
+    label: "Mountain Retreat",
+    icon: GiMountainCave,
+    description: "Find serenity in the mountains, an ideal retreat for your shoot!",
   },
   {
-    label: "Islands",
-    icon: GiIsland,
-    description: "This property is on an island!",
+    label: "Artistic Studios",
+    icon: GiArtificialIntelligence,
+    description: "Discover studios designed for artistic and creative photography!",
   },
   {
-    label: "Lake",
-    icon: GiBoatFishing,
-    description: "This property is near a lake!",
-  },
-  {
-    label: "Skiing",
-    icon: FaSkiing,
-    description: "This property has skiing activies!",
-  },
-  {
-    label: "Castles",
-    icon: GiCastle,
-    description: "This property is an ancient castle!",
-  },
-  {
-    label: "Caves",
+    label: "Vintage Vibes",
     icon: GiCaveEntrance,
-    description: "This property is in a spooky cave!",
+    description: "Step into the past with locations exuding vintage vibes!",
   },
   {
-    label: "Camping",
-    icon: GiForestCamp,
-    description: "This property offers camping activities!",
-  },
-  {
-    label: "Arctic",
-    icon: BsSnow,
-    description: "This property is in arctic environment!",
-  },
-  {
-    label: "Desert",
-    icon: GiCactus,
-    description: "This property is in the desert!",
-  },
-  {
-    label: "Barns",
-    icon: GiBarn,
-    description: "This property is in a barn!",
-  },
-  {
-    label: "Lux",
+    label: "Chic and Trendy",
     icon: IoDiamond,
-    description: "This property is brand new and luxurious!",
+    description: "Stay on-trend with chic and stylish shoot locations!",
+  },
+  {
+    label: "Public Spaces",
+    icon: GiFruitBowl,
+    description: "Capture the essence of vibrant open-air markets in your shoot!",
   },
 ];
 
+
 type Props = {};
 
-function Categories({}: Props) {
+function Categories({ }: Props) {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();

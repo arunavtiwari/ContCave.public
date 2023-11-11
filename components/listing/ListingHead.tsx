@@ -1,6 +1,6 @@
 "use client";
 
-import useCountries from "@/hook/useCountries";
+import useCities from "@/hook/useCities";
 import { SafeUser } from "@/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -22,14 +22,14 @@ function ListingHead({
   id,
   currentUser,
 }: Props) {
-  const { getByValue } = useCountries();
+  const { getByValue } = useCities();
   const location = getByValue(locationValue);
 
   return (
     <>
       <Heading
         title={title}
-        subtitle={`${location?.region}, ${location?.label}`}
+        subtitle={`India, ${location?.label}`}
       />
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}

@@ -25,7 +25,7 @@ function ImageUpload({ onChange, value }: Props) {
   return (
     <CldUploadWidget
       onUpload={handleCallback}
-      uploadPreset="cptcecyi"
+      uploadPreset="phxjukr6"
       options={{
         maxFiles: 1,
       }}

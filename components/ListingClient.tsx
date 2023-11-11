@@ -3,21 +3,24 @@
 import useLoginModel from "@/hook/useLoginModal";
 import { SafeReservation, SafeUser, safeListing } from "@/types";
 import axios from "axios";
+import { timeStamp } from "console";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Range } from "react-date-range";
+import { Calendar } from "react-date-range";
 import { toast } from "react-toastify";
-
+import { format } from "date-fns";
 import Container from "./Container";
 import ListingHead from "./listing/ListingHead";
 import ListingInfo from "./listing/ListingInfo";
 import ListingReservation from "./listing/ListingReservation";
 import { categories } from "./navbar/Categories";
 
-const initialDateRange = {
-  startDate: new Date(),
-  endDate: new Date(),
+const initialDate = new Date();
+
+const initialTimeRange = {
+  startTime: new Date(),
+  endTime: new Date(),
   key: "selection",
 };
 
@@ -33,70 +36,72 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
   const router = useRouter();
   const loginModal = useLoginModel();
 
-  const disableDates = useMemo(() => {
-    let dates: Date[] = [];
 
-    reservations.forEach((reservation) => {
-      const range = eachDayOfInterval({
-        start: new Date(reservation.startDate),
-        end: new Date(reservation.endDate),
-      });
-
-      dates = [...dates, ...range];
-    });
-
-    return dates;
-  }, [reservations]);
+  const disableDates = reservations.map((reservation) => new Date(reservation.startDate));
 
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
-  const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<[Date, Date]>([
+    new Date(1970, 0, 1, 10, 0), // initial start time (10:00 AM)
+    new Date(1970, 0, 1, 11, 0)  // initial end time (11:00 AM)
+  ]);
+
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
-      return loginModal.onOpen();
+      loginModal.onOpen();
+      return;
     }
 
     setIsLoading(true);
 
-    axios
-      .post("/api/reservations", {
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listing?.id,
-      })
+    axios.post("/api/reservations", {
+      totalPrice,
+      startDate: selectedDate, // Format the date if needed
+      startTime: selectedTimeSlot[0], // Format the time
+      endTime: selectedTimeSlot[1],
+      listingId: listing.id,
+    })
       .then(() => {
-        toast.success("Success!");
-        setDateRange(initialDateRange);
-        router.push("/trips");
+        toast.success("Reservation Successful!");
+        setSelectedDate(new Date());
+        setSelectedTimeSlot([
+          new Date(1970, 0, 1, 10, 0), // initial start time (10:00 AM)
+          new Date(1970, 0, 1, 11, 0)  // initial end time (11:00 AM)
+        ]);
+        router.push("/bookings");
       })
       .catch(() => {
-        toast.error("Something Went Wrong");
+        toast.error("Error in Reservation");
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, [totalPrice, dateRange, listing?.id, router, currentUser, loginModal]);
+  }, [totalPrice, selectedDate, selectedTimeSlot, listing.id, router, currentUser, loginModal]);
 
   useEffect(() => {
-    if (dateRange.startDate && dateRange.endDate) {
-      const dayCount = differenceInCalendarDays(
-        dateRange.endDate,
-        dateRange.startDate
-      );
+    if (selectedDate && selectedTimeSlot && listing.price) {
+      const [startTime, endTime] = selectedTimeSlot;
 
-      if (dayCount && listing.price) {
-        setTotalPrice(dayCount * listing.price);
-      } else {
-        setTotalPrice(listing.price);
-      }
+      // Get hours and minutes from Date objects
+      const startHours = startTime.getHours();
+      const startMinutes = startTime.getMinutes();
+      const endHours = endTime.getHours();
+      const endMinutes = endTime.getMinutes();
+
+      // Calculate duration in minutes
+      const durationInMinutes = (endHours * 60 + endMinutes) - (startHours * 60 + startMinutes);
+
+      // Calculate total price
+      setTotalPrice((durationInMinutes / 60) * listing.price);
     }
-  }, [dateRange, listing.price]);
+  }, [selectedDate, selectedTimeSlot, listing.price]);
 
-  const category = useMemo(() => {
-    return categories.find((item) => item.label === listing.category);
-  }, [listing.category]);
+
+
+  const category = categories.find((item) => item.label === listing.category);
+
 
   return (
     <Container>
@@ -114,17 +119,16 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
               user={listing.user}
               category={category}
               description={listing.description}
-              roomCount={listing.roomCount}
-              guestCount={listing.guestCount}
-              bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
             />
             <div className="order-first mb-10 md:order-last md:col-span-3">
               <ListingReservation
                 price={listing.price}
                 totalPrice={totalPrice}
-                onChangeDate={(value) => setDateRange(value)}
-                dateRange={dateRange}
+                setSelectDate={(value) => setSelectedDate(value)}
+                selectedDate={selectedDate}
+                setSelectTime={(value) => setSelectedTimeSlot(value)}
+                selectedTime={selectedTimeSlot}
                 onSubmit={onCreateReservation}
                 disabled={isLoading}
                 disabledDates={disableDates}
