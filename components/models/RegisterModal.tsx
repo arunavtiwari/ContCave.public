@@ -17,7 +17,7 @@ import Modal from "./Modal";
 
 type Props = {};
 
-function RegisterModal({}: Props) {
+function RegisterModal({ }: Props) {
   const registerModel = useRegisterModal();
   const loginModel = useLoginModel();
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +59,7 @@ function RegisterModal({}: Props) {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to Airbnb-Clone"
+        title="Welcome to ContCave"
         subtitle="Create an Account!"
         center
       />

@@ -7,6 +7,7 @@ import Calendar from "../inputs/Calendar";
 import Button from "../Button";
 import TimeRangePicker from '@wojtekmaj/react-timerange-picker';
 import '@wojtekmaj/react-timerange-picker/dist/TimeRangePicker.css';
+import 'react-clock/dist/Clock.css';
 
 type Props = {
   price: number;
@@ -48,7 +49,14 @@ function ListingReservation({
       <TimeRangePicker
         value={selectedTime}
         onChange={(value) => setSelectTime(value as [Date, Date])}
+        clockAriaLabel="Select Time"
+        clearAriaLabel="Clear Time"
+        hourAriaLabel="Select Hour"
+        minuteAriaLabel="Select Minute"
+        secondAriaLabel="Select Second"
+        rangeDivider=" to "
       />
+
       <hr />
       <div className="p-4">
         <Button disabled={disabled} label="Reserve" onClick={onSubmit} />

@@ -4,7 +4,6 @@ import useLoginModel from "@/hook/useLoginModal";
 import { SafeReservation, SafeUser, safeListing } from "@/types";
 import axios from "axios";
 import { timeStamp } from "console";
-import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Calendar } from "react-date-range";
@@ -18,11 +17,11 @@ import { categories } from "./navbar/Categories";
 
 const initialDate = new Date();
 
-const initialTimeRange = {
-  startTime: new Date(),
-  endTime: new Date(),
-  key: "selection",
-};
+// const initialTimeRange = {
+//   startTime: new Date(),
+//   endTime: new Date(),
+//   key: "selection",
+// };
 
 type Props = {
   reservations?: SafeReservation[];
@@ -36,15 +35,16 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
   const router = useRouter();
   const loginModal = useLoginModel();
 
-
+  //disable time to be implented instead of disable date
   const disableDates = reservations.map((reservation) => new Date(reservation.startDate));
+
 
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(initialDate);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<[Date, Date]>([
-    new Date(1970, 0, 1, 10, 0), // initial start time (10:00 AM)
-    new Date(1970, 0, 1, 11, 0)  // initial end time (11:00 AM)
+    new Date(1970, 0, 1, 10, 0),
+    new Date(1970, 0, 1, 11, 0)
   ]);
 
 
@@ -58,18 +58,14 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
 
     axios.post("/api/reservations", {
       totalPrice,
-      startDate: selectedDate, // Format the date if needed
-      startTime: selectedTimeSlot[0], // Format the time
-      endTime: selectedTimeSlot[1],
+      startDate: selectedDate.toISOString(),
+      startTime: selectedTimeSlot[0].toISOString(),
+      endTime: selectedTimeSlot[1].toISOString(),
       listingId: listing.id,
     })
       .then(() => {
         toast.success("Reservation Successful!");
-        setSelectedDate(new Date());
-        setSelectedTimeSlot([
-          new Date(1970, 0, 1, 10, 0), // initial start time (10:00 AM)
-          new Date(1970, 0, 1, 11, 0)  // initial end time (11:00 AM)
-        ]);
+        setSelectedDate(initialDate);
         router.push("/bookings");
       })
       .catch(() => {
@@ -78,29 +74,21 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [totalPrice, selectedDate, selectedTimeSlot, listing.id, router, currentUser, loginModal]);
+  }, [totalPrice, selectedDate, selectedTimeSlot, listing?.id, router, currentUser, loginModal]);
 
   useEffect(() => {
-    if (selectedDate && selectedTimeSlot && listing.price) {
-      const [startTime, endTime] = selectedTimeSlot;
-
-      // Get hours and minutes from Date objects
-      const startHours = startTime.getHours();
-      const startMinutes = startTime.getMinutes();
-      const endHours = endTime.getHours();
-      const endMinutes = endTime.getMinutes();
-
-      // Calculate duration in minutes
-      const durationInMinutes = (endHours * 60 + endMinutes) - (startHours * 60 + startMinutes);
-
-      // Calculate total price
-      setTotalPrice((durationInMinutes / 60) * listing.price);
+    if (selectedDate && selectedTimeSlot) {
+      const timeDifferenceInMilliseconds = new Date(selectedTimeSlot[1]).getTime() - new Date(selectedTimeSlot[0]).getTime();;
+      const timeDifferenceInHours = timeDifferenceInMilliseconds / (1000 * 60 * 60);
+      setTotalPrice(timeDifferenceInHours * listing.price);
     }
   }, [selectedDate, selectedTimeSlot, listing.price]);
 
 
 
-  const category = categories.find((item) => item.label === listing.category);
+    const category = useMemo(() => {
+    return categories.find((item) => item.label === listing.category);
+  }, [listing.category]);
 
 
   return (

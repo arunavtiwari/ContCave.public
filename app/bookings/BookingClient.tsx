@@ -42,7 +42,7 @@ function BookingClient({ reservations, currentUser }: Props) {
     <Container>
       <Heading
         title="Booking"
-        subtitle="Where you've been and where you're going"
+        subtitle="Shooting Spaces booked by you"
       />
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
         {reservations.map((reservation) => (
