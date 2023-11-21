@@ -20,6 +20,7 @@ function ClientOnly({ children }: Props) {
 
   return (
     <motion.div
+      key="clientOnly"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
