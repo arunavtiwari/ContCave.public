@@ -14,12 +14,12 @@ type Props = {};
 function Footer({ }: Props) {
   const [country, setCountry] = useState("India");
 
-  const itemData = [
-    ["Company", "About", "Guides", "Blog"],
-    ["Support", "Help Center", "Guielines", "Safety", "FAQ"],
-    ["Activities", "Photo Shoot", "Filming Content", "Event", "Wedding", "Party", "Birthday", "Outdoor Event"],
-    ["Cities", "Delhi", "Mumbai"],
-  ];
+  // const itemData = [
+  //   ["Company", "About", "Guides", "Blog"],
+  //   ["Support", "Help Center", "Guielines", "Safety", "FAQ"],
+  //   ["Activities", "Photo Shoot", "Filming Content", "Event", "Wedding", "Party", "Birthday", "Outdoor Event"],
+  //   ["Cities", "Delhi", "Mumbai"],
+  // ];
 
   useEffect(() => {
     fetch(
@@ -29,9 +29,9 @@ function Footer({ }: Props) {
       .then((data) => setCountry(data.country));
   }, []);
 
-  const footerColumns = itemData.map((item, index) => (
-    <FooterColumn index={index} data={item} />
-  ))
+  // const footerColumns = itemData.map((item, index) => (
+  //   <FooterColumn index={index} data={item} />
+  // ))
 
   return (
     <ClientOnly>
