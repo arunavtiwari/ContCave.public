@@ -78,9 +78,9 @@ function Footer({ }: Props) {
 
         </div>
 
-        <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-4 gap-y-10">
+        {/* <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-4 gap-y-10">
           {footerColumns}
-        </div>
+        </div> */}
 
         <p className="text-sm md:col-span-5">{country}</p>
       </div>
