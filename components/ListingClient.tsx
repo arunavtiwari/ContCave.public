@@ -6,7 +6,7 @@ import axios from "axios";
 import { timeStamp } from "console";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Calendar } from "react-date-range";
+import { Calendar } from "react-date-range"
 import { toast } from "react-toastify";
 import { format } from "date-fns";
 import Container from "./Container";
@@ -16,13 +16,6 @@ import ListingReservation from "./listing/ListingReservation";
 import { categories } from "./navbar/Categories";
 
 const initialDate = new Date();
-
-// const initialTimeRange = {
-//   startTime: new Date(),
-//   endTime: new Date(),
-//   key: "selection",
-// };
-
 type Props = {
   reservations?: SafeReservation[];
   listing: safeListing & {
@@ -42,10 +35,7 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [selectedDate, setSelectedDate] = useState<Date>(initialDate);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<[Date, Date]>([
-    new Date(1970, 0, 1, 10, 0),
-    new Date(1970, 0, 1, 11, 0)
-  ]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<[string, string]>(["09:00", "11:00"]);
 
 
   const onCreateReservation = useCallback(() => {
@@ -56,11 +46,12 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
 
     setIsLoading(true);
 
+
     axios.post("/api/reservations", {
       totalPrice,
       startDate: selectedDate.toISOString(),
-      startTime: selectedTimeSlot[0].toISOString(),
-      endTime: selectedTimeSlot[1].toISOString(),
+      startTime: new Date(`${selectedDate.toISOString().split('T')[0]}T${selectedTimeSlot[0]}`),
+      endTime: new Date(`${selectedDate.toISOString().split('T')[0]}T${selectedTimeSlot[1]}`),
       listingId: listing.id,
     })
       .then(() => {
@@ -77,16 +68,24 @@ function ListingClient({ reservations = [], listing, currentUser }: Props) {
   }, [totalPrice, selectedDate, selectedTimeSlot, listing?.id, router, currentUser, loginModal]);
 
   useEffect(() => {
+
     if (selectedDate && selectedTimeSlot) {
-      const timeDifferenceInMilliseconds = new Date(selectedTimeSlot[1]).getTime() - new Date(selectedTimeSlot[0]).getTime();;
+      const [startTime, endTime] = selectedTimeSlot;
+
+      const startDate = new Date(`${selectedDate.toISOString().split('T')[0]}T${startTime}`);
+      const endDate = new Date(`${selectedDate.toISOString().split('T')[0]}T${endTime}`);
+
+      const timeDifferenceInMilliseconds = endDate.getTime() - startDate.getTime();
       const timeDifferenceInHours = timeDifferenceInMilliseconds / (1000 * 60 * 60);
+
       setTotalPrice(timeDifferenceInHours * listing.price);
     }
   }, [selectedDate, selectedTimeSlot, listing.price]);
 
 
 
-    const category = useMemo(() => {
+
+  const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
 

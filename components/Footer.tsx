@@ -1,6 +1,4 @@
 "use client";
-
-import { motion } from "framer-motion";
 import Logo from "@/components/navbar/Logo";
 import React, { useEffect, useState } from "react";
 import ClientOnly from "./ClientOnly";
@@ -14,7 +12,7 @@ import { Icon } from "leaflet";
 type Props = {};
 
 function Footer({ }: Props) {
-  const [country, setCountry] = useState("United States");
+  const [country, setCountry] = useState("India");
 
   const itemData = [
     ["Company", "About", "Guides", "Blog"],
@@ -68,6 +66,16 @@ function Footer({ }: Props) {
               <BsInstagram size={24} />
             </a>
           </div>
+          <div className="md:col-span-1 flex items-center space-x-4">
+            <p className="text-lg font-semibold">
+              Have a question? Feel free to reach out to us at{" "}
+              <a href="mailto:support@contcave.tech" className="text-blue-500 underline">
+                support@contcave.tech
+              </a>
+            </p>
+          </div>
+
+
         </div>
 
         <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-4 gap-y-10">

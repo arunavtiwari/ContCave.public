@@ -8,7 +8,7 @@ import {
   GiCastle,
   GiCaveEntrance,
   GiForestCamp,
-  GiIsland, GiAncientRuins, GiPineTree, GiFactory,GiPhotoCamera,
+  GiIsland, GiAncientRuins, GiPineTree, GiFactory, GiPhotoCamera,
   GiSunflower, GiCube, GiLighthouse, GiMountainCave,
   GiArtificialIntelligence, GiFruitBowl
 } from "react-icons/gi";
@@ -71,7 +71,7 @@ export const categories = [
     description: "Shoot by the sea, with breathtaking views and natural lighting!",
   },
   {
-    label: "Mountain Retreat",
+    label: "Mountain",
     icon: GiMountainCave,
     description: "Find serenity in the mountains, an ideal retreat for your shoot!",
   },

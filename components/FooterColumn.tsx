@@ -18,6 +18,7 @@ function FooterColumn({ index, data }: Props) {
 
   return (
     <motion.div
+      key={index}
       initial={{
         x: index % 2 === 0 ? -200 : 200,
         opacity: 0,

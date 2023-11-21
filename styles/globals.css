@@ -29,3 +29,8 @@ body,
   font-size: 16px !important;
   width: 100% !important;
 }
+
+.my-custom-timepicker {
+  width: 100%;
+  padding: 12px;
+}
