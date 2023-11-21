@@ -13,7 +13,7 @@ import getCurrentUser from "./actions/getCurrentUser";
 export const metadata = {
   title: "ContCave",
   description: "Marketplace for booking shoot space",
-  icons: "https://www.seekpng.com/png/full/957-9571167_airbnb-png.png",
+  icons: "https://i.ibb.co/4JdrGHS/Screenshot-2023-11-22-at-3-52-33-AM.png",
 };
 
 const font = Nunito({

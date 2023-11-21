@@ -76,17 +76,17 @@ export const categories = [
     description: "Find serenity in the mountains, an ideal retreat for your shoot!",
   },
   {
-    label: "Artistic Studios",
+    label: "Artistic",
     icon: GiArtificialIntelligence,
     description: "Discover studios designed for artistic and creative photography!",
   },
   {
-    label: "Vintage Vibes",
+    label: "Vintage",
     icon: GiCaveEntrance,
     description: "Step into the past with locations exuding vintage vibes!",
   },
   {
-    label: "Chic and Trendy",
+    label: "Chic & Trendy",
     icon: IoDiamond,
     description: "Stay on-trend with chic and stylish shoot locations!",
   },
