@@ -4,15 +4,16 @@ type Props = {
   index: number;
   data: Array<string>;
 };
-
 function FooterColumn({ index, data }: Props) {
   const columnItems = data.map((item, itemIndex) =>
     itemIndex === 0 ? (
-      <h3 key={itemIndex} className="font-bold text-xl">
+      <h3 key={`${index}-${itemIndex}`} className="font-bold text-xl">
         {item}
       </h3>
     ) : (
-      <p className="text-sm" key={itemIndex}>{item}</p>
+      <p key={`${index}-${itemIndex}`} className="text-sm">
+        {item}
+      </p>
     )
   );
 
