@@ -15,8 +15,7 @@ function Search({ }: Props) {
   const { getByValue } = useCountries();
 
   const locationValue = params?.get("locationValue");
-  const startDate = params?.get("startDate");
-  const endDate = params?.get("endDate");
+  const startDate = params?.get("selectedDate");
   const timeSlot = params?.get("timeSlot");
 
   const locationLabel = useMemo(() => {
@@ -24,31 +23,29 @@ function Search({ }: Props) {
       return getByValue(locationValue as string)?.label;
     }
 
-    return "City"; // Change "Anywhere" to "City"
+    return "City"; // 
   }, [getByValue, locationValue]);
 
   const dateLabel = useMemo(() => {
-    if (startDate && endDate) {
+    if (startDate) {
       const start = new Date(startDate as string);
-      const end = new Date(endDate as string);
-      let diff = differenceInDays(end, start);
+      const options: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric' };
+      const formattedDate = start.toLocaleString('en-US', options);
 
-      if (diff === 0) {
-        diff = 1;
-      }
-
-      return `${diff} Days`;
+      // Adjust the fontSize as needed
+      const styledDate = <span style={{ fontSize: '14px' }}>{formattedDate}</span>;
+      return styledDate;
     }
 
-    return "Date"; 
-  }, [startDate, endDate]);
+    return "Date";
+  }, [startDate]);
 
   const timeSlotLabel = useMemo(() => {
     if (timeSlot) {
-      return `${timeSlot} Time Slot`;
+      return `${timeSlot}`;
     }
 
-    return "Time Slot"; 
+    return "Time";
   }, []);
 
   return (
@@ -64,7 +61,7 @@ function Search({ }: Props) {
         <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3">
           <div className="hidden sm:block text-center">{timeSlotLabel}</div>
           <div className="p-2 bg-yellow-700 rounded-full text-white">
-            <BiSearch size={18}/>
+            <BiSearch size={18} />
           </div>
         </div>
       </div>

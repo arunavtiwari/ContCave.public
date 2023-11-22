@@ -50,7 +50,7 @@ function ListingReservation({
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg"><h1>Pick your Time Slot</h1></div>
       <TimeRangePicker
         value={selectedTime}
-        onChange={(value) => setSelectTime(value as [string, string])} // Update the type here
+        onChange={(value) => setSelectTime(value as [string, string])}
         rangeDivider=" to "
         className="w-full my-custom-timepicker "
         autoFocus={true}
