@@ -14,13 +14,6 @@ type Props = {};
 function Footer({ }: Props) {
   const [country, setCountry] = useState("India");
 
-  // const itemData = [
-  //   ["Company", "About", "Guides", "Blog"],
-  //   ["Support", "Help Center", "Guielines", "Safety", "FAQ"],
-  //   ["Activities", "Photo Shoot", "Filming Content", "Event", "Wedding", "Party", "Birthday", "Outdoor Event"],
-  //   ["Cities", "Delhi", "Mumbai"],
-  // ];
-
   useEffect(() => {
     fetch(
       `https://extreme-ip-lookup.com/json/?key=${process.env.NEXT_PUBLIC_LOOKUP_KEY}`
@@ -28,10 +21,6 @@ function Footer({ }: Props) {
       .then((res) => res.json())
       .then((data) => setCountry(data.country));
   }, []);
-
-  // const footerColumns = itemData.map((item, index) => (
-  //   <FooterColumn index={index} data={item} />
-  // ))
 
   return (
     <ClientOnly>
@@ -78,9 +67,6 @@ function Footer({ }: Props) {
 
         </div>
 
-        {/* <div className="md:col-span-4 grid grid-cols-1 md:grid-cols-4 gap-y-10">
-          {footerColumns}
-        </div> */}
 
         <p className="text-sm md:col-span-5">{country}</p>
       </div>
