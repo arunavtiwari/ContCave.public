@@ -1,5 +1,5 @@
 import ClientOnly from "@/components/ClientOnly";
-import Footer from "@/components/Footer";
+
 import ToastContainerBar from "@/components/ToastContainerBar";
 import LoginModal from "@/components/models/LoginModal";
 import RegisterModal from "@/components/models/RegisterModal";
@@ -9,6 +9,7 @@ import Navbar from "@/components/navbar/Navbar";
 import { Nunito } from "next/font/google";
 import "../styles/globals.css";
 import getCurrentUser from "./actions/getCurrentUser";
+import Footer from "@/app/Footer";
 
 export const metadata = {
   title: "ContCave",
