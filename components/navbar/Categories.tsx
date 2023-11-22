@@ -16,6 +16,7 @@ import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
+import Search from "./Search";
 
 
 
@@ -114,6 +115,7 @@ function Categories({ }: Props) {
   return (
     <Container>
       <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
+        <Search />
         {categories.map((items, index) => (
           <CategoryBox
             key={index}
@@ -122,7 +124,9 @@ function Categories({ }: Props) {
             selected={category === items.label}
           />
         ))}
+
       </div>
+
     </Container>
   );
 }

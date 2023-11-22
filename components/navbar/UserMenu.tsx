@@ -28,10 +28,17 @@ function UserMenu({ currentUser }: Props) {
     setIsOpen((value) => !value);
   }, []);
 
+  const onRentEquip = useCallback(() => {
+
+    window.alert("Coming soon");
+  }, [currentUser, loginModel]);
+
+  const onHireTalent = useCallback(() => {
+    window.alert("Coming soon");
+  }, []);
+
   const onRent = useCallback(() => {
-    if (!currentUser) {
-      return loginModel.onOpen();
-    }
+
 
     rentModel.onOpen();
   }, [currentUser, loginModel, rentModel]);
@@ -39,11 +46,25 @@ function UserMenu({ currentUser }: Props) {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          className="hidden md:block text-sm font-semibold py-7 px-3 rounded-full hover:bg-neutral-100 transition cursor-pointer"
-          onClick={onRent}
-        >
-          List Your Space
+        <div className="flex flex-row items-center gap-1">
+          <div
+            className="hidden md:block text-sm font-semibold py-7 px-2 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+            onClick={onRent}
+          >
+            List Your Space
+          </div>
+          <div
+            className="hidden md:block text-sm font-semibold py-7 px-2 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+            onClick={onRentEquip}
+          >
+            Rent Equipment
+          </div>
+          <div
+            className="hidden md:block text-sm font-semibold py-7 px-1 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+            onClick={onHireTalent}
+          >
+            Hire Talent
+          </div>
         </div>
         <div
           onClick={toggleOpen}

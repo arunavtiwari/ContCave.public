@@ -33,6 +33,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
+    "react-js-dialog-box": "^1.1.6",
     "react-leaflet": "^4.2.1",
     "react-select": "^5.7.2",
     "react-toastify": "^9.1.2",
