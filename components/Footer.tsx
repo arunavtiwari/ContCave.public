@@ -59,10 +59,10 @@ function Footer({ }: Props) {
             <a href="https://www.linkedin.com/company/contcave/?viewAsMember=true" target="_blank" rel="noopener noreferrer">
               <BsLinkedin size={24} />
             </a>
-            <a href="https://www.linkedin.com/company/contcave/?viewAsMember=true" target="_blank" rel="noopener noreferrer">
+            <a href="https://x.com/contcave/" target="_blank" rel="noopener noreferrer">
               <FaSquareXTwitter size={24} />
             </a>
-            <a href="https://www.linkedin.com/company/contcave/?viewAsMember=true" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/contcave/" target="_blank" rel="noopener noreferrer">
               <BsInstagram size={24} />
             </a>
           </div>
