@@ -35,7 +35,7 @@ function Footer({ }: Props) {
 
   return (
     <ClientOnly>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-10 px-32 py-14 bg-gray-100 text-gray-600">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-y-10 px-10 py-10 bg-gray-100 text-gray-600">
         <div className="md:col-span-1 grid grid-rows-auto-1 gap-y-4">
           <div className="md:col-span-1">
             <Logo />
