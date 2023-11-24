@@ -13,8 +13,8 @@ type Props = {
   totalPrice: number;
   setSelectDate: (value: Date) => void;
   selectedDate: Date;
-  setSelectTime: (value: [string, string]) => void; 
-  selectedTime: [string, string]; 
+  setSelectTime: (value: [string, string]) => void;
+  selectedTime: [string, string];
   onSubmit: () => void;
   disabled?: boolean;
   disabledDates: Date[];
@@ -54,6 +54,8 @@ function ListingReservation({
         rangeDivider=" to "
         className="w-full my-custom-timepicker "
         autoFocus={true}
+        amPmAriaLabel="Select AM/PM"
+        disableClock={true}
       />
 
       <hr />
