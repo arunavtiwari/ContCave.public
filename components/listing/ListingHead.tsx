@@ -47,9 +47,8 @@ function ListingHead({
       <Slider {...slickSettings}>
 
         {imageSrc.map((url, index) => (
-          <div className="w-full h-[60vh] overflow-hidden rounded-xl relative">
+          <div key={index} className="w-full h-[60vh] overflow-hidden rounded-xl relative">
             <Image
-              key={index}
               src={url}
               alt={`image-${index}`}
               fill
