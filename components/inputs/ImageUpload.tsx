@@ -10,16 +10,20 @@ declare global {
 }
 
 type Props = {
-  onChange: (value: string) => void;
-  value: string;
+  onChange: (value: string[]) => void;
+  values: string[];
 };
 
-function ImageUpload({ onChange, value }: Props) {
+function ImageUpload({ onChange, values }: Props) {
   const handleCallback = useCallback(
     (result: any) => {
-      onChange(result.info.secure_url);
+      const urls = Array.isArray(result.info.secure_url)
+        ? result.info.secure_url
+        : [result.info.secure_url];
+
+      onChange([...values, ...urls]);
     },
-    [onchange]
+    [onChange, values]
   );
 
   return (
@@ -27,7 +31,8 @@ function ImageUpload({ onChange, value }: Props) {
       onUpload={handleCallback}
       uploadPreset="phxjukr6"
       options={{
-        maxFiles: 1,
+        maxFiles: 10,
+        multiple: true
       }}
     >
       {({ open }) => {
@@ -38,14 +43,17 @@ function ImageUpload({ onChange, value }: Props) {
           >
             <TbPhotoPlus size={50} />
             <div className="font-semibold text-lg">Click to upload</div>
-            {value && (
+            {values.length > 0 && (
               <div className=" absolute inset-0 w-full h-full">
-                <Image
-                  alt="uploade"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  src={value}
-                />
+                {values.map((url, index) => (
+                  <Image
+                    key={index}
+                    alt={`upload-${index}`}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    src={url}
+                  />
+                ))}
               </div>
             )}
           </div>
