@@ -13,7 +13,7 @@ import Footer from "@/app/Footer";
 
 export const metadata = {
   title: "ContCave",
-  description: "Marketplace for booking shoot space",
+  description: "Marketplace for booking shoot spaces",
   icons: "https://i.ibb.co/4JdrGHS/Screenshot-2023-11-22-at-3-52-33-AM.png",
 };
 
